@@ -1,0 +1,492 @@
+
+<html>
+<head>
+<title>Chipper Run</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<script type="text/javascript" src="https://static.codehs.com/gulp/010f0b35a151638482478a7e711ce9a6da6f9c7c/chs-js-lib/chs.js"></script>
+
+
+<style>
+canvas {
+    border: 1px solid black;
+    display: inline-block;
+    vertical-align: top;
+}
+
+pre {
+    border: 1px solid black;
+    display: inline-block;
+    width: 400px;
+    height: 500px;
+    background-color: #F5F5F5;
+}
+</style>
+
+</head>
+
+<body>
+<h1>Chipper Run</h1>
+
+
+
+<canvas
+width="400"
+height="500"
+class="codehs-editor-canvas"></canvas>
+<pre id="console"></pre>
+
+<script>
+window.onload = function() {
+
+    
+
+var sky = new Color(130, 219, 237);
+var h = 0;
+var sk = new Rectangle(500,500);
+sk.setPosition(0,0);
+sk.setColor(sky);
+add(sk);
+var dog = new WebImage("https://raw.githubusercontent.com/wbraffman/gp/master/DOG%20IN.png")
+var test = new WebImage("https://raw.githubusercontent.com/wbraffman/gp/master/Base-2-2.png");
+var ground = new Rectangle(500,200);
+ground.setPosition(0,350);
+ground.setColor(Color.green);
+add(ground);
+var bad1 = new WebImage("https://raw.githubusercontent.com/wbraffman/gp/master/Bad1.png");
+bad1.setSize(75,90);
+bad1.setPosition(290,225);
+var bad2 = new WebImage("https://raw.githubusercontent.com/wbraffman/gp/master/HumanSprite.png");
+bad2.setSize(50,75);
+bad2.setPosition(52,227);
+platform = new Rectangle(50,5);
+platform.setColor(Color.GREEN);
+platform.setPosition(300,300);
+var platform1;
+platform1 = new Rectangle(50,5);
+platform1.setColor(Color.GREEN);
+platform1.setPosition(50,300);
+var Chipper = new Text("Chipper","30pt Impact");
+Chipper.setPosition(130,100);
+Chipper.setColor(Color.WHITE);
+add(Chipper);
+var inst = new Text("Press Any Key to Start", "15pt Impact")
+    inst.setPosition(110,135);
+    inst.setColor(Color.WHITE);
+add(inst)
+var disp = new Text("Points:" ,"30pt Impact")
+    disp.setPosition(10,50);
+    disp.setColor(Color.red);
+var hand = new WebImage("https://raw.githubusercontent.com/wbraffman/gp/master/cursor-arrow-png-5.png")
+hand.setSize(25,25);
+var i = 0;
+var front = new WebImage("https://raw.githubusercontent.com/wbraffman/gp/master/IMG_0415-8-2.png");
+var back = new WebImage("https://raw.githubusercontent.com/wbraffman/gp/master/IMG_0415-8-2.png");
+var movement = 0;
+var obj1 = new Rectangle(100,50);
+var j = 0;
+ var brown = new Color(159,103,56);
+var count = 5;
+var platform;
+var points = 0;
+var life = 3;
+var go = 0
+var r = new WebImage("https://raw.githubusercontent.com/wbraffman/gp/master/Untitled%20(2).png")
+var rt = new Text("Resume", "10pt Impact")
+rt.setPosition(177, 267)
+rt.setColor(Color.BLACK);
+ var pause = new WebImage("https://raw.githubusercontent.com/wbraffman/gp/master/Untitled%20(1).png")
+ var n = 0
+ var off = 0
+ var dg = 0
+ var dog2 = new WebImage("https://raw.githubusercontent.com/wbraffman/gp/master/Screen%20Shot%202020-05-15%20at%203.58.18%20PM.png")
+ var button2 = new WebImage("https://raw.githubusercontent.com/wbraffman/gp/master/Untitled%20(2).png")
+ button2.setSize(90,25);
+    button2.setPosition(155,210)
+    var button3 = new WebImage("https://raw.githubusercontent.com/wbraffman/gp/master/Untitled%20(2).png")
+ button3.setSize(90,25);
+    button3.setPosition(155,170)
+     var ins = new Text("Instructions", "10pt Impact")
+ins.setPosition(167, 187)
+ins.setColor(Color.BLACK);
+    var cd = new Text("Credits", "10pt Impact")
+cd.setPosition(179, 227)
+cd.setColor(Color.BLACK);
+var Heading = new Text("Credits", "20pt Impact")
+Heading.setPosition(159, 140);
+Heading.setColor(Color.BLACK)
+var c1 = new Text("William Braffman....Code", "10pt Impact")
+c1.setPosition(133, 165);
+c1.setColor(Color.BLACK);
+var c2 = new Text("Chipper............Inspiration", "10pt Impact")
+c2.setPosition(133, 185);
+c2.setColor(Color.BLACK);
+var c3 = new Text("Celia Mcdermott...Owner", "10pt Impact")
+c3.setPosition(133, 205);
+c3.setColor(Color.BLACK);
+var ins1 = new Text("Run between the two", "10pt Impact")
+var ins2 = new Text("human characters", "10pt Impact")
+var ins3 = new Text("and press 'G' to", "10pt Impact")
+var ins4 = new Text("earn points", "10pt Impact")
+ins1.setPosition(143,145);
+ins1.setColor(Color.BLACK);
+ins2.setPosition(150,165);
+ins2.setColor(Color.BLACK);
+ins3.setPosition(158,185);
+ins3.setColor(Color.BLACK);
+ins4.setPosition(168,205);
+ins4.setColor(Color.BLACK);
+var ins5 = new Text("Warning: Timing is key", "10pt Impact")
+ins5.setPosition(138,225)
+ins5.setColor(Color.RED)
+var pa = new Text("Paused", "25pt Impact")
+pa.setPosition(150,155)
+pa.setColor(Color.BLACK)
+function start(){
+   
+    setTimer(TH,300);
+    test.setPosition(175,300);
+    test.setSize(50,50);
+    add(test);
+    front.setPosition(194,300);
+    front.setSize(35,50);
+    add(front);
+    back.setPosition(174,300);
+    back.setSize(35,50);
+    add(back);
+    var floor = new Color(224,172,112);
+    
+    
+    drawRectangle(500, 200, 0, 370, brown);
+    keyDownMethod(level);
+    setTimer(checkground,10);
+    
+    
+}
+function TH(){
+    
+    h++;
+    if(h%2 == 0){
+        remove(Chipper);
+        remove(inst);
+    }else if(h%2 == 1){
+        add(Chipper);
+        add(inst);
+    }
+}
+
+
+function level(y){
+   if(y.keyCode == Keyboard.letter('T'))
+   remove(test);
+   remove(inst)
+   add(bad1);
+   add(bad2);
+   stopTimer(TH)
+   remove(Chipper);
+   add(platform);
+   add(platform1);
+    test.setPosition(1,300);
+    test.setSize(50,50);
+    add(test);
+    front.setPosition(20,300);
+    front.setSize(35,50);
+    add(front);
+    back.setPosition(0,300);
+    back.setSize(35,50);
+    add(back);
+    drawRectangle(500, 200, 0, 350, Color.green);
+    drawRectangle(500, 200, 0, 370, brown);
+    setTimer(Points,10);
+    dog.setPosition(165,290);
+    dog.setSize(100,75);
+    add(dog);
+    dog2.setPosition(165,290);
+    dog2.setSize(100,75);
+    setTimer(dgc, 21)
+    setTimer(bm,20)
+    keyDownMethod(move);
+   add(disp);
+   var info = new Text("Press P to Pause", "20pt Impact")
+   info.setPosition(10, 80)
+   info.setColor(Color.WHITE);
+   add(info);
+   
+}
+function move(f){
+    
+    if(n%2 == 0){
+        
+        if(f.keyCode == Keyboard.RIGHT){
+        movement++;
+        test.move(2,0);
+        back.move(2,0);
+        front.move(2,0);
+        if(movement%2 == 0){
+        front.rotate(-15,0);
+        back.rotate(25,0);
+        }else{
+            front.rotate(15,0);
+            back.rotate(-25,0);
+        }
+        if(test.getX() >= getWidth()-50){
+            test.move(-2,0)
+            front.move(-2,0)
+            back.move(-2,0)
+        }
+        
+}
+
+if(f.keyCode == Keyboard.LEFT){
+        movement++;
+        test.move(-2,0);
+        back.move(-2,0);
+        front.move(-2,0);
+        if(movement%2 == 0){
+        front.rotate(-15,0);
+        back.rotate(25,0);
+        }else{
+            front.rotate(15,0);
+            back.rotate(-25,0);
+        }
+        if(test.getX() <= 1){
+            test.move(2,0)
+            front.move(2,0)
+            back.move(2,0)
+        }
+        
+}
+  
+    if(f.keyCode == Keyboard.UP){
+        setTimer(jump,100);
+       
+       
+    
+}
+
+    if(f.keyCode == Keyboard.letter('G') && (front.getX() >= 312.5 && front.getX() <= 337.5) && (front.getY() >= 250 && front.getY() <= 300)){
+        remove(bad1);
+        points++
+        test.setPosition(175,300);
+        front.setPosition(194,300);
+        back.setPosition(174,300);
+        setTimer(badr, 5000);
+    }
+
+        
+    
+    if(f.keyCode == Keyboard.letter('G') && (front.getX() >= 52 && front.getX() <= 102) && (front.getY() >= 227 && front.getY() <= 302)){
+        remove(bad2);
+         points++
+        test.setPosition(175,300);
+        front.setPosition(194,300);
+        back.setPosition(174,300);
+        setTimer(badr2, 5000);
+     }
+    }  
+    if(off == 0){
+     if(f.keyCode == Keyboard.letter('P')){
+       
+         pause.setPosition(125, 110)
+         pause.setSize(150,200)
+         r.setSize(90,25);
+    r.setPosition(155,250)
+         add(pause)
+         add(r)
+         add(button2)
+         add(button3)
+         add(ins)
+         go++
+         add(rt);
+         n++
+         add(cd)
+        mouseClickMethod(cursor)
+        stopTimer(dgc)
+        add(pa)
+     }
+    
+}
+}
+function dgc(){
+    dg++
+    if(dg%2 == 0){
+        add(dog2);
+        remove(dog)
+        
+    }else{
+        add(dog);
+        remove(dog2)
+
+    }
+}
+function badr(){
+    if(off == 0){
+    add(bad1);
+    stopTimer(badr);
+}
+}
+function badr2(){
+    if(off == 0){
+    add(bad2);
+    stopTimer(badr2)
+}
+}
+function bm(){
+    if(go == 0){
+    if(dog.getX() >= -20 && dog.getX() < getWidth()-100){
+    dog.move(2,0)
+    dog2.move(2,0)
+    
+    
+    
+    }else if(dog.getX() > getWidth()-100){
+        stopTimer(bm)
+        setTimer(bm2, 20)
+    }
+    var elem = getElementAt (front.getX(),front.getY());
+    if (elem == dog){
+        var end = new Rectangle(5000,5000)
+            end.setPosition(0,0)
+            end.setColor(Color.BLACK)
+            add(end)
+            var gameo = new Text("Game Over","30pt Impact");
+            gameo.setPosition(110,100);
+            gameo.setColor(Color.WHITE);
+            add(gameo);
+            off++
+            stopTimer(dgc)
+            stopTimer(badr)
+            stopTimer(badr2);
+            remove(bad2);
+            remove(bad1);
+            setTimer(rm,1)
+    }
+}
+}
+function bm2(){
+    if(go == 0){
+    dog.move(-2,0);
+    dog2.move(-2,0);
+    
+   
+    if(dog.getX() < -10){
+        setTimer(bm,20)
+        stopTimer(bm2);
+    }
+    var elem = getElementAt (front.getX(),front.getY());
+    if (elem == dog){
+        var end = new Rectangle(5000,5000)
+            end.setPosition(0,0)
+            end.setColor(Color.BLACK)
+            add(end)
+            var gameo = new Text("Game Over","30pt Impact");
+            gameo.setPosition(110,100);
+            gameo.setColor(Color.WHITE);
+            add(gameo);
+            stopTimer(dgc)
+            remove(dog)
+            remove(dog2)
+    }
+}
+}
+
+function checkground(){
+     var elem = getElementAt (front.getX(),front.getY()+51);
+    if (elem == sk){
+        test.move(0,5);
+        front.move(0,5);
+        back.move(0,5);
+}
+}
+
+
+function drawRectangle(width, height, x, y, color){
+    var Rect = new Rectangle(width,height);
+    Rect.setPosition(x,y);
+    Rect.setColor(color);
+    add(Rect);
+}
+function drawArc(radius, angle1, angle2, color, x, y){
+    var arc = new Arc(radius, angle1, angle2, 0);
+    arc.setColor(color);
+    arc.setPosition(x,y);
+    add(arc);
+}
+
+
+function Points(){
+    disp.setText("Points:" + points)
+}
+    
+
+function jump(){
+        test.move(0,-50);
+        back.move(0,-50);
+        front.move(0,-50);
+      
+        stopTimer(jump);
+}
+function cursor(h){
+    
+    if((h.getX() >=155 && h.getX()<= 245) && (h.getY() >= 250 && h.getY() <= 275)){
+        remove(pause);
+        n++
+        remove(rt)
+       go--
+       remove(r)
+       remove(button2)
+       remove(cd);
+       setTimer(dgc,21)
+       remove(Heading)
+       remove(c1);
+       remove(c2)
+       remove(c3)
+       remove(button3)
+       remove(ins)
+        remove(ins1)
+         remove(ins2)
+         remove(ins3)
+         remove(ins4)
+         remove(ins5)
+         remove(pa)
+    }
+     if((h.getX() >=155 && h.getX()<= 245) && (h.getY() >= 210 && h.getY() <= 235)){
+         remove(cd)
+         remove(button2)
+         add(Heading)
+         add(c1)
+         add(c2)
+         add(c3)
+         remove(button3)
+         remove(ins)
+         remove(pa)
+     }
+     if((h.getX() >=155 && h.getX()<= 245) && (h.getY() >= 170 && h.getY() <= 195)){
+         remove(cd);
+         remove(button2)
+         remove(button3)
+         remove(ins)
+         add(ins1)
+         add(ins2)
+         add(ins3)
+         add(ins4)
+         add(ins5)
+         remove(pa)
+     }
+     
+}
+function rm(){
+    remove(bad1)
+    remove(bad2)
+}
+
+
+    if (typeof start === 'function') {
+        start();
+    }
+};
+</script>
+
+</body>
+</html>
